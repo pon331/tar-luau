@@ -376,7 +376,7 @@ end
 		error("TAR file is truncated")
 	end
 
-	local Output: { [string]: buffer } = {}
+	const Output: { [string]: buffer } = {}
 	local Position = 0
 
 	while Position + HEADER_SIZE <= Size do
