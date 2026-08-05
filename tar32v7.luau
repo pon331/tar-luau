@@ -156,7 +156,7 @@ end
 				return Position
 			elseif bit32.band(Word, 0xFF00) == 0 then
 				return Position + 1
-			elseif bit32.band(Word, 0xFF0_000) == 0 then
+			elseif bit32.band(Word, 0xFF_0000) == 0 then
 				return Position + 2
 			end
 			return Position + 3
