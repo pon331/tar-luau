@@ -280,7 +280,7 @@ end
 	const Entries: { ArchiveEntry } = {}
 	local TotalSize = 2 * BLOCK_SIZE
 
-	for _, Name in Names do
+	for Index, Name in Names do
 		const Data = Files[Name]
 		const NameData = buffer.fromstring(Name)
 		const NameLength = buffer.len(NameData)
@@ -306,7 +306,7 @@ end
 			Directory = true
 		end
 
-		Entries[#Entries + 1] = table.freeze {
+		Entries[Index] = table.freeze {
 			Data = Data,
 			NameData = NameData,
 			NameSum = NameSum,
