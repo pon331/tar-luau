@@ -48,13 +48,13 @@ const LANE_LOW = 0x0101_0101
 const LANE_BYTES = 0x00FF_00FF
 
 type ArchiveEntry = {
-	Data: buffer,
-	NameData: buffer,
-	NameSum: number,
-	LongData: buffer?,
-	Directory: boolean,
-	Size64: integer,
-	Size: number,
+	read Data: buffer,
+	read NameData: buffer,
+	read NameSum: number,
+	read LongData: buffer?,
+	read Directory: boolean,
+	read Size64: integer,
+	read Size: number,
 }
 
 const OCTAL_PAIRS = buffer.fromstring("\48\48\48\49\48\50\48\51\48\52\48\53\48\54\48\55\49\48\49\49\49\50\49\51\49\52\49\53\49\54\49\55\50\48\50\49\50\50\50\51\50\52\50\53\50\54\50\55\51\48\51\49\51\50\51\51\51\52\51\53\51\54\51\55\52\48\52\49\52\50\52\51\52\52\52\53\52\54\52\55\53\48\53\49\53\50\53\51\53\52\53\53\53\54\53\55\54\48\54\49\54\50\54\51\54\52\54\53\54\54\54\55\55\48\55\49\55\50\55\51\55\52\55\53\55\54\55\55")
@@ -275,7 +275,7 @@ end
 		if Byte >= 0x30 and Byte <= 0x37 then
 			Value = bit32.lshift(Value, 3) + Byte - 0x30
 		elseif Byte ~= 0 and Byte ~= 0x20 then
-			error(`Invalid TAR {Label} field`)
+			error(`Invalid TAR64 {Label} field`)
 		end
 	end
 	return Value
@@ -381,7 +381,7 @@ end
 			Directory = true
 		end
 
-		Entries[#Entries + 1] = {
+		Entries[#Entries + 1] = table.freeze {
 			Data = Data,
 			NameData = NameData,
 			NameSum = NameSum,
@@ -434,7 +434,7 @@ end
 			break
 		end
 		if buffer.readu32(Data, Position + GNU_PREFIX_OFFSET) ~= GNU_PREFIX_LOW or buffer.readu32(Data, Position + GNU_PREFIX_OFFSET + 4) ~= GNU_PREFIX_HIGH then
-			error("Invalid TAR magic")
+			error("Invalid TAR prefix")
 		end
 
 		const NameLength = ScanLength(Data, Position + NAME_OFFSET, NAME_LENGTH)
