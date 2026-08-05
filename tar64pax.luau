@@ -542,7 +542,7 @@ end
 			break
 		end
 		if buffer.readu32(Data, Position + USTAR_PREFIX_OFFSET) ~= USTAR_PREFIX_LOW or buffer.readu32(Data, Position + USTAR_PREFIX_OFFSET + 4) ~= USTAR_PREFIX_HIGH then
-			error("Invalid TAR magic")
+			error("Invalid TAR prefix")
 		end
 
 		const NameLength = ScanLength(Data, Position + NAME_OFFSET, NAME_LENGTH)
