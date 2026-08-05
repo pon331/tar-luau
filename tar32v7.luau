@@ -182,7 +182,7 @@ end
 	const High = buffer.readu32(Data, Offset + 4)
 
 	if DigitsValid(Low) and bit32.band(High, 0xFFFF_0000) == 0x2000_0000 and DigitsValid(bit32.bor(bit32.band(High, 0xFFFF), 0x3030_0000)) then
-		return (bit32.lshift(bit32.band(Low, 0xFF), 15) + bit32.lshift(bit32.band(Low, 0xFF00), 4) + bit32.rshift(bit32.band(Low, 0xFF0_000), 7) + bit32.rshift(bit32.band(Low, 0xFF00_0000), 18)) + (bit32.lshift(bit32.band(High, 0xFF), 3) + bit32.rshift(bit32.band(High, 0xFF00), 8)) - 1_797_552
+		return (bit32.lshift(bit32.band(Low, 0xFF), 15) + bit32.lshift(bit32.band(Low, 0xFF00), 4) + bit32.rshift(bit32.band(Low, 0xFF_0000), 7) + bit32.rshift(bit32.band(Low, 0xFF00_0000), 18)) + (bit32.lshift(bit32.band(High, 0xFF), 3) + bit32.rshift(bit32.band(High, 0xFF00), 8)) - 1_797_552
 	end
 
 	local Value = 0
